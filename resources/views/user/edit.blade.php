@@ -25,20 +25,22 @@
                                 <input type="email" class="form-control" id="email" placeholder="email" name="email" value="{{ old('email', $user->email) }}">
                             </div>
 
-                            <div class="form-group">
-                                <select class="form-control" name="roles" id="roles">
-                                    @foreach ($roles as $role)
-                                    <option value="{{$role->id}}"
-                                        @isset($user->roles[0]->name)
-                                            @if ($role->name == $user->roles[0]->name)
-                                                selected
-                                            @endif
-                                        @endisset
-                                            
-                                        >{{$role->id}} - {{$role->name}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
+                            @can('haveaccess', 'user.destroy')
+                                <div class="form-group">
+                                    <select class="form-control" name="roles" id="roles">
+                                        @foreach ($roles as $role)
+                                        <option value="{{$role->id}}"
+                                            @isset($user->roles[0]->name)
+                                                @if ($role->name == $user->roles[0]->name)
+                                                    selected
+                                                @endif
+                                            @endisset
+                                                
+                                            >{{$role->id}} - {{$role->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            @endcan
 
                             <hr>
 
