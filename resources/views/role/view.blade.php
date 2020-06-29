@@ -81,8 +81,14 @@
 
                             <hr>
 
-                            <a class="btn btn-success" href="{{route('role.edit', $role->id) }}">Edit</a>
+                            
+                            @can('haveaccess', 'role.edit')
+                                <a class="btn btn-success" href="{{ route('role.edit', $role->id) }}">Edit</a>
+                            @else
+                                <a class="btn btn-success" disable >Edit</a>
+                            @endcan
                             <a class="btn btn-danger" href="{{route('role.index') }}">Back</a>
+                            
 
                             
                         </div>    
@@ -113,8 +119,11 @@
                                     <th scope="row">{{ $user->id }}</th>
                                     <td>{{ $user->name }}</td>
                                     <td>{{ $user->email }}</td>
-                                    <td><a class="btn btn-info" href="#">Show</a></td>
-                                    {{-- {{ route('user.show', $user->id) }} --}}
+                                    <td>
+                                        @can('view', [$user,['user.show','userown.show']])
+                                         <a class="btn btn-success" href="{{ route('user.show', $user->id) }}">Show</a>
+                                        @endcan
+                                    </td>
                                 </tr>
                                 @endforeach
                             </tbody>

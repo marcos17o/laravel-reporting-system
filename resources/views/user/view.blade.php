@@ -42,7 +42,10 @@
                             
                             <hr>
 
-                            <a class="btn btn-success" href="{{route('user.edit', $user->id) }}">Edit</a>
+                            @can('update', [$user,['user.edit','userown.edit']])
+                                <a class="btn btn-success" href="{{ route('user.edit', $user->id) }}">Edit</a>
+                            @endcan
+                            
                             <a class="btn btn-danger" href="{{route('user.index') }}">Back</a>
 
                             
