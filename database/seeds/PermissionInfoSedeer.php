@@ -113,6 +113,14 @@ class PermissionInfoSedeer extends Seeder
         $permission_all[] = $permission->id;
 
         $permission = Permission::create([
+            'name'        => 'Show user',
+            'slug'        => 'user.show',
+            'description' => 'A User can see user'
+        ]);
+
+        $permission_all[] = $permission->id;
+
+        $permission = Permission::create([
             'name'        => 'Edit user',
             'slug'        => 'user.edit',
             'description' => 'A User can Edit user'
@@ -128,16 +136,24 @@ class PermissionInfoSedeer extends Seeder
 
         $permission_all[] = $permission->id;
 
-        /*
+
+
+        // New 
         $permission = Permission::create([
-            'name'        => 'Show user',
-            'slug'        => 'user.show',
-            'description' => 'A User see user'
+            'name'        => 'Show own user',
+            'slug'        => 'userown.show',
+            'description' => 'A User see own user'
         ]);
 
         $permission_all[] = $permission->id;
 
-        */
+        $permission = Permission::create([
+            'name'        => 'Edit own user',
+            'slug'        => 'userown.edit',
+            'description' => 'A User can Edit own user'
+        ]);
+
+        $permission_all[] = $permission->id;
 
         // Table permission_role
         // esta es la forma de agregar todos los permidos a un ususrio

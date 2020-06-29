@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Permission\Models\Role;
+use App\User;
 
 use Illuminate\Http\Request;
 
@@ -13,7 +15,10 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        $this->authorize('haveaccess', 'user.index');
+        $users = User::with('roles')->orderBy('id', 'Desc')->paginate(10);
+        // return $users;
+        return view('user.index', compact('users'));
     }
 
     /**
@@ -23,7 +28,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        // $this->authorize('create', User::class);
+        // return 'Create';
     }
 
     /**
@@ -43,9 +49,14 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(User $user)
     {
-        //
+
+        $this->authorize('view', [$user,['user.show','userown.show']]);
+
+        $roles = Role::orderBy('name')->get();
+        // return $roles;
+        return view('user.view', compact('roles','user'));
     }
 
     /**
@@ -54,9 +65,13 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(User $user)
     {
-        //
+        $this->authorize('update', [$user,['user.edit','userown.edit']]);
+
+        $roles = Role::orderBy('name')->get();
+        // return $roles;
+        return view('user.edit', compact('roles','user'));
     }
 
     /**
@@ -66,9 +81,21 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, User $user)
     {
-        //
+        $this->authorize('update', $user);
+        $request->validate([
+            'name'        => 'required|max:50|unique:users,name,'.$user->id,
+            'email'        => 'required|max:50|unique:users,email,'.$user->id,
+        ]);
+        // dd($request->all());
+        $user->update($request->all());
+
+        $user->roles()->sync($request->get('roles'));
+
+
+        return redirect()->route('user.index')
+                ->with('status_success', 'User update successfully');
     }
 
     /**
@@ -77,8 +104,11 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
-        //
+        $this->authorize('haveaccess', 'user.destroy');
+        $user->delete();
+        return redirect()->route('user.index')
+                ->with('status_success', 'User successfully removed');
     }
 }
