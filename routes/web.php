@@ -26,7 +26,7 @@ Route::get('/', function () {
 Route::get('/test', function () {
     $user = User::find(2);
     // $user->roles()->sync([2]);
-    Gate::authorize('haveaccess');
+    Gate::authorize('haveaccess', true);
     return $user;
     // return $user->havePermission('role.create');
 });
