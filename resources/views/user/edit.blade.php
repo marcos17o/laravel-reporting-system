@@ -21,10 +21,15 @@
                             <div class="form-group">
                                 <input type="text" class="form-control" id="name" placeholder="name" name="name" value="{{ old('name', $user->name) }}">
                             </div>
+
                             <div class="form-group">
                                 <input type="email" class="form-control" id="email" placeholder="email" name="email" value="{{ old('email', $user->email) }}">
                             </div>
-                            
+
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="co_usuario" placeholder="co_usuario" name="co_usuario" value="{{ old('co_usuario', $user->co_usuario) }}">
+                            </div>
+
                             <div class="form-group">
                                 <select class="form-control" name="roles" id="roles">
                                     @foreach ($roles as $role)
@@ -34,7 +39,7 @@
                                                 selected
                                             @endif
                                         @endisset
-                                            
+
                                         >{{$role->id}} - {{$role->name}}</option>
                                     @endforeach
                                 </select>
@@ -44,11 +49,11 @@
 
                             <input type="submit" value="Save" class="btn btn-primary">
                             <a class="btn btn-danger" href="{{route('user.index') }}">Back</a>
-                            
-                            
-                        </div>    
+
+
+                        </div>
                     </form>
-                    
+
 
                 </div>
             </div>

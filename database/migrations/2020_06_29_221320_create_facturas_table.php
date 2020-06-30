@@ -15,16 +15,17 @@ class CreateFacturasTable extends Migration
     {
         Schema::create('facturas', function (Blueprint $table) {
             $table->id();
-            $table->integer('co_sistema',8)->default('0');
-            $table->integer('co_os',8)->default('0');
-            $table->integer('num_nf',10)->default('0');
-            $table->float('total')->default('0');
-            $table->float('valor')->default('0');
-            $table->date('data_emissao')->default('1000-01-01');
-            $table->text('corpo_nf');
-            $table->float('comissao_cn')->default('0');
-            $table->float('total_imp_inc')->default('0');
-            $table->primary('co_fatura');
+            // $table->string('co_fatura')->unsigned();
+            $table->string('co_cliente')->nullable();
+            $table->string('co_sistema')->nullable();
+            $table->string('co_os')->nullable();
+            $table->integer('num_nf')->nullable();
+            $table->decimal('total')->nullable();
+            $table->decimal('valor')->nullable();
+            $table->date('data_emissao')->nullable();
+            $table->text('corpo_nf')->nullable();
+            $table->decimal('comissao_cn')->nullable();
+            $table->decimal('total_imp_inc')->nullable();
             $table->timestamps();
         });
     }
@@ -39,3 +40,4 @@ class CreateFacturasTable extends Migration
         Schema::dropIfExists('facturas');
     }
 }
+

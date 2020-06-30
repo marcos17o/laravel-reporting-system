@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div class="container-fluid">
     <div class="row justify-content-center">
         <div class="col-lg-8 col-md-12">
             <div class="card">
@@ -10,12 +10,12 @@
                 @include('custom.mensaje')
 
                 <div class="card-body">
-  
+
                     <br><br>
 
 
                     <table class="table table-hover table-responsive">
-                    
+
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
@@ -27,7 +27,7 @@
                         </thead>
                         <tbody>
                             @foreach ($users as $user)
-                          
+
                             <tr>
                                 <th scope="row">{{ $user->id }}</th>
                                 <td>{{ $user->name }}</td>

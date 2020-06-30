@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 
 use App\User;
 use App\Permission\Models\Role;
+use App\Permission\Models\Factura;
+use App\Permission\Models\salario;
 
 use App\Permission\Models\Permission;
 use Illuminate\Support\Facades\Gate;
@@ -28,7 +30,7 @@ Route::get('/test', function () {
     // $user->roles()->sync([2]);
     Gate::authorize('haveaccess', 'role.index');
     return $user;
-    
+
     // return $user->havePermission('role.create');
 });
 
@@ -41,3 +43,7 @@ Route::resource('/role', 'RoleController')->names('role');
 Route::resource('/user', 'UserController',[
     'except' => ['create','store']
 ])->names('user');
+
+Route::resource('/factura', 'FacturaController')->names('factura');
+
+Route::get('/reports', 'ReportesController@index')->name('reports.index');

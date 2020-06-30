@@ -4,7 +4,7 @@
 
 <div class="container-fluid">
     <div class="row justify-content-center">
-        <div class="col-lg-7 col-md-12">
+        <div class="col-lg-9 col-md-12">
             <div class="card">
                 <div class="card-header"><h2>User information: {{ $user->name }}</h2></div>
 
@@ -26,6 +26,10 @@
                             </div>
 
                             <div class="form-group">
+                                <input disabled type="text" class="form-control" id="co_usuario" placeholder="co_usuario" name="co_usuario" value="{{ old('co_usuario', $user->co_usuario) }}">
+                            </div>
+
+                            <div class="form-group">
                                 <select disabled class="form-control" name="roles" id="roles">
                                     @foreach ($roles as $role)
                                     <option value="{{$role->id}}"
@@ -34,22 +38,22 @@
                                                 selected
                                             @endif
                                         @endisset
-                                            
+
                                         >{{$role->id}} - {{$role->name}}</option>
                                     @endforeach
                                 </select>
                             </div>
-                            
+
                             <hr>
 
                             @can('update', [$user,['user.edit','userown.edit']])
                                 <a class="btn btn-success" href="{{ route('user.edit', $user->id) }}"><i class="fas fa-edit"></i>Edit</a>
                             @endcan
-                            
+
                             <a class="btn btn-danger" href="{{route('user.index') }}">Back</a>
 
-                            
-                        </div>    
+
+                        </div>
                     </form>
                 </div>
             </div>

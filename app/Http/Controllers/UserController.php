@@ -84,6 +84,7 @@ class UserController extends Controller
     public function update(Request $request, User $user)
     {
         $request->validate([
+            'co_usuario'  => 'required|max:50|unique:users,co_usuario,'.$user->id,
             'name'        => 'required|max:50|unique:users,name,'.$user->id,
             'email'        => 'required|max:50|unique:users,email,'.$user->id,
         ]);

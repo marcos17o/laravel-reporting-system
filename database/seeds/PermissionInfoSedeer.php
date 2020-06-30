@@ -5,6 +5,8 @@ use App\User;
 use App\Permission\Models\Role;
 use App\Permission\Models\Permission;
 
+
+
 use Illuminate\Support\Facades\Hash;
 
 class PermissionInfoSedeer extends Seeder
@@ -30,12 +32,13 @@ class PermissionInfoSedeer extends Seeder
 
         // Create User admin
         $useradmin = User::create([
-            'name'      =>  'admin',
-            'email'     => 'admin@admin.com',
-            'password'  => Hash::make('admin')
+            'name'       =>  'admin',
+            'email'      => 'admin@admin.com',
+            'co_usuario' => 'admin',
+            'password'   => Hash::make('admin')
         ]);
 
-        // Create Role admin
+        // Create Roles
         $roleadmin = Role::create([
            'name' => 'Admin',
            'slug' => 'admin',
@@ -43,11 +46,27 @@ class PermissionInfoSedeer extends Seeder
            'full-access' => 'yes'
         ]);
 
+        $roleeditor = Role::create([
+            'name' => 'Editor',
+            'slug' => 'Editor',
+            'description' => 'Editor',
+            'full-access' => 'no'
+         ]);
+
+         $roleconsultor = Role::create([
+            'name' => 'Consultor',
+            'slug' => 'Consultor',
+            'description' => 'Consultor',
+            'full-access' => 'no'
+         ]);
+
         // Table role User
         $useradmin->roles()->sync([$roleadmin->id]);
 
         // permission
         $permission_all = [];
+        $editor         = [];
+        $consultor      = [];
 
 
         // Permision Role
@@ -58,6 +77,8 @@ class PermissionInfoSedeer extends Seeder
         ]);
 
         $permission_all[] = $permission->id;
+        $editor[]         = $permission->id;
+        $consultor[]      = $permission->id;
 
         $permission = Permission::create([
             'name'        => 'Show role',
@@ -66,6 +87,8 @@ class PermissionInfoSedeer extends Seeder
         ]);
 
         $permission_all[] = $permission->id;
+        $editor[]         = $permission->id;
+        $consultor[]      = $permission->id;
 
         $permission = Permission::create([
             'name'        => 'Create role',
@@ -74,6 +97,7 @@ class PermissionInfoSedeer extends Seeder
         ]);
 
         $permission_all[] = $permission->id;
+        $editor[]         = $permission->id;
 
         $permission = Permission::create([
             'name'        => 'Edit role',
@@ -82,6 +106,7 @@ class PermissionInfoSedeer extends Seeder
         ]);
 
         $permission_all[] = $permission->id;
+        $editor[]         = $permission->id;
 
         $permission = Permission::create([
             'name'        => 'Destroy role',
@@ -92,7 +117,7 @@ class PermissionInfoSedeer extends Seeder
         $permission_all[] = $permission->id;
 
 
-        
+
         // Permision user
         $permission = Permission::create([
             'name'        => 'List user',
@@ -101,6 +126,8 @@ class PermissionInfoSedeer extends Seeder
         ]);
 
         $permission_all[] = $permission->id;
+        $editor[]         = $permission->id;
+        $consultor[]      = $permission->id;
 
 
 
@@ -111,6 +138,7 @@ class PermissionInfoSedeer extends Seeder
         ]);
 
         $permission_all[] = $permission->id;
+        $editor[]         = $permission->id;
 
         $permission = Permission::create([
             'name'        => 'Show user',
@@ -119,6 +147,8 @@ class PermissionInfoSedeer extends Seeder
         ]);
 
         $permission_all[] = $permission->id;
+        $editor[]         = $permission->id;
+        $consultor[]      = $permission->id;
 
         $permission = Permission::create([
             'name'        => 'Edit user',
@@ -127,6 +157,7 @@ class PermissionInfoSedeer extends Seeder
         ]);
 
         $permission_all[] = $permission->id;
+        $editor[]         = $permission->id;
 
         $permission = Permission::create([
             'name'        => 'Destroy user',
@@ -138,7 +169,7 @@ class PermissionInfoSedeer extends Seeder
 
 
 
-        // New 
+        // New
         $permission = Permission::create([
             'name'        => 'Show own user',
             'slug'        => 'userown.show',
@@ -146,6 +177,7 @@ class PermissionInfoSedeer extends Seeder
         ]);
 
         $permission_all[] = $permission->id;
+        $consultor[]      = $permission->id;
 
         $permission = Permission::create([
             'name'        => 'Edit own user',
@@ -154,9 +186,64 @@ class PermissionInfoSedeer extends Seeder
         ]);
 
         $permission_all[] = $permission->id;
+        $consultor[]      = $permission->id;
+
+
+
+        // facturas
+        $permission = Permission::create([
+            'name'        => 'List Factura',
+            'slug'        => 'factura.index',
+            'description' => 'A User can list Factura'
+        ]);
+
+        $permission_all[] = $permission->id;
+        $editor[]         = $permission->id;
+        $consultor[]      = $permission->id;
+
+        $permission = Permission::create([
+            'name'        => 'Show Factura',
+            'slug'        => 'factura.show',
+            'description' => 'A User see Factura'
+        ]);
+
+        $permission_all[] = $permission->id;
+        $editor[]         = $permission->id;
+        $consultor[]      = $permission->id;
+
+        $permission = Permission::create([
+            'name'        => 'Create Factura',
+            'slug'        => 'factura.create',
+            'description' => 'A User can Create Factura'
+        ]);
+
+        $permission_all[] = $permission->id;
+        $editor[]         = $permission->id;
+
+        $permission = Permission::create([
+            'name'        => 'Edit Factura',
+            'slug'        => 'factura.edit',
+            'description' => 'A User can Edit Factura'
+        ]);
+
+        $permission_all[] = $permission->id;
+        $editor[]         = $permission->id;
+
+        $permission = Permission::create([
+            'name'        => 'Destroy Factura',
+            'slug'        => 'factura.destroy',
+            'description' => 'A User can Destroy Factura'
+        ]);
+
+        $permission_all[] = $permission->id;
+
 
         // Table permission_role
         // esta es la forma de agregar todos los permidos a un ususrio
         // $roleadmin->permissions()->sync( $permission_all );
+
+        $roleeditor->permissions()->sync( $editor );
+        $roleconsultor->permissions()->sync( $consultor );
+
     }
 }

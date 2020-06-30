@@ -17,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'co_usuario', 'name', 'email', 'password',
     ];
 
     /**
@@ -39,8 +39,8 @@ class User extends Authenticatable
     ];
 
 
-    // es: de aqui 
-    // en: from hear 
+    // es: de aqui
+    // en: from hear
 
-    
+
 }
