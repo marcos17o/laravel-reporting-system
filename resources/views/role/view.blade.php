@@ -85,7 +85,7 @@
                             @can('haveaccess', 'role.edit')
                                 <a class="btn btn-success" href="{{ route('role.edit', $role->id) }}">Edit</a>
                             @else
-                                <a class="btn btn-success" disable >Edit</a>
+                                <a class="btn btn-success" disable ><i class="fas fa-edit"></i> Edit</a>
                             @endcan
                             <a class="btn btn-danger" href="{{route('role.index') }}">Back</a>
                             

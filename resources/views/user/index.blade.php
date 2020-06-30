@@ -44,7 +44,7 @@
                                 </td>
                                 <td>
                                     @can('update', [$user,['user.edit','userown.edit']])
-                                        <a class="btn btn-info" href="{{ route('user.edit', $user->id) }}">Edit</a>
+                                        <a class="btn btn-info" href="{{ route('user.edit', $user->id) }}"><i class="fas fa-edit"></i> Edit</a>
                                     @endcan
                                 </td>
                                 <td>
@@ -52,7 +52,7 @@
                                         <form action="{{ route('user.destroy', $user->id) }}" method="post">
                                             @csrf
                                             @method('DELETE')
-                                            <button class="btn btn-danger">Delete</button>
+                                            <button class="btn btn-danger"><i class="fas fa-trash-alt"></i> Delete</button>
                                         </form>
                                     @endcan
                                 </td>
