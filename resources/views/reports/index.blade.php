@@ -5,9 +5,15 @@
 <div class="container-fluid">
     <div class="row justify-content-center">
         <div class="col-12">
+            <div class="text-center">
+                <h2>En construccion</h2>
+                <img src="https://static.wixstatic.com/media/404129_57320dafca4649a38b9f9e7f337e5c49~mv2.gif" alt="En contruccion">
+            </div>
+                
             <div class="card">
-                <div class="card-header"><h2>Reportes</h2></div>
+                <div class="card-header"><h2>Reportes (Solo usuarios con el rol Consultor)</h2></div>
 
+                
                 @include('custom.mensaje')
 
                 <div class="card-body">
@@ -63,10 +69,13 @@
                             </div>
 
                         </div>
+                        <div class="form-group m-0">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
 
 
 
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                       
 
 
 
