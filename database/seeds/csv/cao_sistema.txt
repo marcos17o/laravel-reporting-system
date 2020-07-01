@@ -1,56 +1,4 @@
--- phpMyAdmin SQL Dump
--- version 4.9.0.1
--- https://www.phpmyadmin.net/
---
--- Servidor: 127.0.0.1
--- Tiempo de generación: 30-06-2020 a las 23:04:24
--- Versión del servidor: 10.4.6-MariaDB
--- Versión de PHP: 7.3.9
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
-SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
---
--- Base de datos: `desarrollo`
---
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `cao_sistema`
---
-
-CREATE TABLE `cao_sistema` (
-  `co_sistema` int(8) NOT NULL,
-  `co_cliente` int(8) UNSIGNED DEFAULT 0,
-  `co_usuario` varchar(50) DEFAULT '0',
-  `co_arquitetura` int(3) UNSIGNED DEFAULT 0,
-  `no_sistema` varchar(200) DEFAULT NULL,
-  `ds_sistema_resumo` text DEFAULT NULL,
-  `ds_caracteristica` text DEFAULT NULL,
-  `ds_requisito` text DEFAULT NULL,
-  `no_diretoria_solic` varchar(100) DEFAULT NULL,
-  `ddd_telefone_solic` varchar(5) DEFAULT NULL,
-  `nu_telefone_solic` varchar(20) DEFAULT NULL,
-  `no_usuario_solic` varchar(100) DEFAULT NULL,
-  `dt_solicitacao` date DEFAULT NULL,
-  `dt_entrega` date DEFAULT NULL,
-  `co_email` int(30) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
---
--- Volcado de datos para la tabla `cao_sistema`
---
-
-INSERT INTO `cao_sistema` (`co_sistema`, `co_cliente`, `co_usuario`, `co_arquitetura`, `no_sistema`, `ds_sistema_resumo`, `ds_caracteristica`, `ds_requisito`, `no_diretoria_solic`, `ddd_telefone_solic`, `nu_telefone_solic`, `no_usuario_solic`, `dt_solicitacao`, `dt_entrega`, `co_email`) VALUES
+INSERT INTO `cao_sistemas` (`co_sistema`, `co_cliente`, `co_usuario`, `co_arquitetura`, `no_sistema`, `ds_sistema_resumo`, `ds_caracteristica`, `ds_requisito`, `no_diretoria_solic`, `ddd_telefone_solic`, `nu_telefone_solic`, `no_usuario_solic`, `dt_solicitacao`, `dt_entrega`, `co_email`) VALUES
 (82, 0, '', 0, 'Personalidade', '', '', '', '', '', '', '', '2004-10-29', '2004-10-29', NULL),
 (83, 1, '', 0, 'NAINET', '', '', '', '', '', '', '', '2005-07-21', '2005-07-21', 435),
 (84, 1, 'luiz.paulo', 1, 'COL', 'Cliente OnLine', '', '', '', '', '', 'Marco Antonio', '2004-11-12', '2004-11-12', NULL),
@@ -255,29 +203,3 @@ INSERT INTO `cao_sistema` (`co_sistema`, `co_cliente`, `co_usuario`, `co_arquite
 (287, 6, 'carlos.arruda', 5, 'SGVNet - Website Institucional', 'Website Institucional do sistema SGVNet', '', '', 'Comercial', '', '', '', '2007-09-14', '2007-09-14', 430),
 (288, 2, 'carlos.arruda', 2, 'SisconDJ 3.0', 'Sistema de Controle de DepÃ³sitos Judiciais', '', '', '', '', '', '', '2007-09-14', '2007-09-14', 441),
 (289, 7058, 'fernanda.barbosa', 5, 'antarescapital.com.br', 'Site de investimentos', '', '', '', '', '', '', '2007-09-18', '2007-09-18', 577);
-
---
--- Índices para tablas volcadas
---
-
---
--- Indices de la tabla `cao_sistema`
---
-ALTER TABLE `cao_sistema`
-  ADD PRIMARY KEY (`co_sistema`),
-  ADD KEY `co_sistema` (`co_sistema`);
-
---
--- AUTO_INCREMENT de las tablas volcadas
---
-
---
--- AUTO_INCREMENT de la tabla `cao_sistema`
---
-ALTER TABLE `cao_sistema`
-  MODIFY `co_sistema` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=290;
-COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

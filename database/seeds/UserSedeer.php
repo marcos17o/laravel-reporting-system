@@ -1,8 +1,12 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Permission\Models\Role;
 use App\User;
 use Illuminate\Support\Facades\Hash;
+
+
+// roleuser_default
 
 class UserSedeer extends Seeder
 {
@@ -13,6 +17,7 @@ class UserSedeer extends Seeder
      */
     public function run()
     {
+        $role_id = Role::where('slug', 'user_default')->get('id');
 
 
             //Abrimos nuestro archivo
@@ -27,12 +32,13 @@ class UserSedeer extends Seeder
 
             //Recorremos las columnas de esa linea
 
-            User::create([
+            $user = User::create([
                     'co_usuario' => $datos[0],
                     'name'       => $datos[1],
                     'email'      => $datos[2],
                     'password'   =>  Hash::make($datos[3])
                 ]);
+            $user->roles()->sync($role_id);
 
             }
             //Cerramos el archivo

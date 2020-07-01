@@ -60,6 +60,13 @@ class PermissionInfoSedeer extends Seeder
             'full-access' => 'no'
          ]);
 
+         $roleuser_default = Role::create([
+            'name' => 'user_default',
+            'slug' => 'user_default',
+            'description' => 'user_default',
+            'full-access' => 'no'
+         ]);
+
         // Table role User
         $useradmin->roles()->sync([$roleadmin->id]);
 
@@ -67,6 +74,7 @@ class PermissionInfoSedeer extends Seeder
         $permission_all = [];
         $editor         = [];
         $consultor      = [];
+        $user_default   = [];
 
 
         // Permision Role
@@ -79,6 +87,7 @@ class PermissionInfoSedeer extends Seeder
         $permission_all[] = $permission->id;
         $editor[]         = $permission->id;
         $consultor[]      = $permission->id;
+        $user_default[]   = $permission->id;
 
         $permission = Permission::create([
             'name'        => 'Show role',
@@ -128,6 +137,7 @@ class PermissionInfoSedeer extends Seeder
         $permission_all[] = $permission->id;
         $editor[]         = $permission->id;
         $consultor[]      = $permission->id;
+        $user_default[]   = $permission->id;
 
 
 
@@ -178,6 +188,7 @@ class PermissionInfoSedeer extends Seeder
 
         $permission_all[] = $permission->id;
         $consultor[]      = $permission->id;
+        $user_default[]   = $permission->id;
 
         $permission = Permission::create([
             'name'        => 'Edit own user',
@@ -187,6 +198,7 @@ class PermissionInfoSedeer extends Seeder
 
         $permission_all[] = $permission->id;
         $consultor[]      = $permission->id;
+
 
 
 
@@ -237,6 +249,17 @@ class PermissionInfoSedeer extends Seeder
 
         $permission_all[] = $permission->id;
 
+        // reportes 
+
+        $permission = Permission::create([
+            'name'        => 'Show reports',
+            'slug'        => 'reports.index',
+            'description' => 'A User see Reports'
+        ]);
+
+        $permission_all[] = $permission->id;
+        $editor[]         = $permission->id;
+
 
         // Table permission_role
         // esta es la forma de agregar todos los permidos a un ususrio
@@ -244,6 +267,7 @@ class PermissionInfoSedeer extends Seeder
 
         $roleeditor->permissions()->sync( $editor );
         $roleconsultor->permissions()->sync( $consultor );
+        $roleuser_default->permissions()->sync( $user_default );
 
     }
 }

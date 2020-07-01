@@ -12,8 +12,7 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/select2.min.js') }}" defer></script>
+
 
 
     <!-- Fonts -->
@@ -22,8 +21,6 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/select2.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/select2-bootstrap4.min.css') }}" rel="stylesheet">
     </head>
 <body>
     <div id="app">
@@ -49,9 +46,9 @@
                         @can('haveaccess', 'factura.index')
                             <li class="nav-item"><a href="{{ route('factura.index') }}" class="nav-link">Facturas</a></li>
                         @endcan
-                        {{-- @can('haveaccess', 'factura.index') --}}
+                        @can('haveaccess', 'reports.index')
                             <li class="nav-item"><a href="{{ route('reports.index') }}" class="nav-link">Reports</a></li>
-                        {{-- @endcan --}}
+                        @endcan
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -94,6 +91,7 @@
             @yield('content')
         </main>
     </div>
-
+ <!-- Scripts -->
+ <script src="{{ asset('js/mover.js') }}" defer></script>
 </body>
 </html>

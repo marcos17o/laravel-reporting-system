@@ -22,7 +22,7 @@
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
-                                <th scope="col">name</th>
+                                <th scope="col">ref</th>
                                 <th scope="col">slug</th>
                                 <th scope="col">description</th>
                                 <th scope="col">Full ccess</th>

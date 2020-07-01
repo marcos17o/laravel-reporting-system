@@ -44,9 +44,9 @@
                         @can('haveaccess', 'factura.index')
                             <li class="nav-item"><a href="{{ route('factura.index') }}" class="nav-link">Facturas</a></li>
                         @endcan
-                        {{-- @can('haveaccess', 'factura.index') --}}
+                        @can('haveaccess', 'reports.index')
                             <li class="nav-item"><a href="{{ route('reports.index') }}" class="nav-link">Reports</a></li>
-                        {{-- @endcan --}}
+                        @endcan
                     </ul>
 
                     <!-- Right Side Of Navbar -->

@@ -45,11 +45,10 @@ class FacturaController extends Controller
     {
         Gate::authorize('haveaccess', 'role.create');
 
-        $request->validate([
-            'name'        => 'required|max:50|unique:roles,name',
-            'slug'        => 'required|max:50|unique:roles,slug',
-            'full-access' => 'required|in:yes,no'
-        ]);
+        // $request->validate([
+        //     'name'        => 'required|max:50|unique:roles,name',
+        //     'slug'        => 'required|max:50|unique:roles,slug',
+        // ]);
 
         $role = Role::create($request->all());
 

@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-lg-8 col-md-12">
+        <div class="col-lg-9 col-md-12">
             <div class="card">
                 <div class="card-header"><h2>List of Role</h2></div>
 
@@ -17,7 +17,7 @@
                     @endcan
 
                     <table class="table table-hover table-responsive">
-                    
+
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
@@ -55,7 +55,7 @@
                                             <button class="btn btn-danger"><i class="fas fa-trash-alt"></i> Delete</button>
                                         </form>
                                     @endcan
-                                    
+
                                 </td>
 
                             </tr>
