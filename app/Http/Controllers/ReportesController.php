@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Permission\Models\Factura;
 use Illuminate\Http\Request;
+use App\User;
+use App\Permission\Models\Role;
 
 class ReportesController extends Controller
 {
@@ -14,7 +16,8 @@ class ReportesController extends Controller
      */
     public function index()
     {
-        return view('reports.index');
+        $role = Role::with('users')->where('id',3)->get();
+        return view('reports.index', compact('role'));
     }
 
     /**
@@ -25,7 +28,7 @@ class ReportesController extends Controller
      */
     public function show(Factura $factura)
     {
-        //
+
     }
 
 

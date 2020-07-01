@@ -31,10 +31,10 @@
 
                             <hr>
 
-                            
-                            
+
+
                             <h3>Full Access</h3>
-                            
+
                             <div class="custom-control custom-radio custom-control-inline">
                                 <input disabled type="radio" id="fullaccessyes" name="full-access" class="custom-control-input"
                                     value="yes"
@@ -47,7 +47,7 @@
                             </div>
                             <div class="custom-control custom-radio custom-control-inline">
                                 <input disabled type="radio" id="fullaccessno" name="full-access" class="custom-control-input"
-                                    value="no" 
+                                    value="no"
                                     @if($role['full-access'] == 'no')
                                     checked
                                     @elseif (old('full-access') == 'no')
@@ -61,16 +61,16 @@
                                 <h3>Permission List</h3>
                                 @foreach ($permissions as $permission)
                                     <div class="custom-control custom-checkbox">
-                                        <input disabled type="checkbox" class="custom-control-input" 
-                                            id="permission_{{ $permission->id }}" 
+                                        <input disabled type="checkbox" class="custom-control-input"
+                                            id="permission_{{ $permission->id }}"
                                             value="{{ $permission->id }}"
                                             name="permission[]"
                                             @if (is_array(old('permission')) && in_array($permission->id, old('permission')))
-                                                
+
                                             @elseif(is_array($permissions_role) && in_array($permission->id, $permissions_role))
                                                 checked
                                             @endif>
-                                        
+
                                         <label class="custom-control-label" for="permission_{{ $permission->id }}">
                                             {{ $permission->id }} -  {{ $permission->name }}
                                             <em>({{ $permission->description }})</em>
@@ -81,17 +81,17 @@
 
                             <hr>
 
-                            
+
                             @can('haveaccess', 'role.edit')
                                 <a class="btn btn-success" href="{{ route('role.edit', $role->id) }}">Edit</a>
                             @else
                                 <a class="btn btn-success" disable ><i class="fas fa-edit"></i> Edit</a>
                             @endcan
                             <a class="btn btn-danger" href="{{route('role.index') }}">Back</a>
-                            
 
-                            
-                        </div>    
+
+
+                        </div>
                     </form>
                 </div>
             </div>
@@ -104,7 +104,7 @@
                 <div class="card-body">
                     <div class="container-fluid">
                         <table class="table table-hover table-responsive">
-                                
+
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
@@ -131,7 +131,7 @@
                     </div>
                 </div>
 
-            
+
         </div>
 
 
