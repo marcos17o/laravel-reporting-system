@@ -1,0 +1,1 @@
+$('#list1').select2({ allowClear: true, theme: "bootstrap4", placeholder: "Select User" });

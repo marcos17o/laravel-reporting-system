@@ -47,3 +47,5 @@ Route::resource('/user', 'UserController',[
 Route::resource('/factura', 'FacturaController')->names('factura');
 
 Route::get('/reports', 'ReportesController@index')->name('reports.index');
+
+Route::post('/reports-get-data', 'ReportesController@get_data')->name('reports.get_data');

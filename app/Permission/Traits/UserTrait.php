@@ -1,5 +1,8 @@
 <?php
 namespace App\Permission\Traits;
+use App\Permission\Models\Role;
+use App\Permission\Models\Factura;
+use App\Permission\Models\Cao_sistema;
 
 trait UserTrait{
     // es: de aqui
@@ -7,7 +10,7 @@ trait UserTrait{
 
     public function roles()
     {
-        return $this->belongsToMany('App\Permission\Models\Role')->withTimesTamps();
+        return $this->belongsToMany(Role::class)->withTimesTamps();
     }
 
     public function salarios()
@@ -17,7 +20,12 @@ trait UserTrait{
 
     public function facturas()
     {
-        return $this->belongsToMany('App\Permission\Models\Factura')->withTimesTamps();
+        return $this->belongsToMany(Factura::class)->withTimesTamps();
+    }
+
+    public function cao_sistema()
+    {
+        return $this->belongsToMany(Cao_sistema::class, 'cao_sistemas','co_usuario')->withPivot('co_usuario')->withTimesTamps();
     }
 
     public function havePermission($permission){

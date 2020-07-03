@@ -3,6 +3,7 @@
 namespace App\Permission\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Permission\Models\Cao_sistema;
 
 class Factura extends Model
 {
@@ -29,6 +30,10 @@ class Factura extends Model
         return $this->belongsToMany('App\Permission\Models\Cao_arquitetura_os')->withTimesTamps();
     }
 
+    public function cao_sistema()
+    {
+        return $this->belongsToMany(Cao_sistema::class, 'cao_sistemas','co_usuario')->withPivot('co_usuario')->withTimesTamps();
+    }
 
 
 }

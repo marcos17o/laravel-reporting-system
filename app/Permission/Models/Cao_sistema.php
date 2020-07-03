@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Permission\Models;
+use App\Permission\Models\Factura;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -22,5 +23,15 @@ class Cao_sistema extends Model
         'dt_entrega',
         'co_email'
     ];
+
+    public function users()
+    {
+        return $this->belongsToMany('App\User', 'co_usuario')->withTimesTamps();
+    }
+
+    public function facturas()
+    {
+        return $this->belongsToMany(Factura::class, 'cao_sistemas','co_usuario')->withTimesTamps();
+    }
 
 }
