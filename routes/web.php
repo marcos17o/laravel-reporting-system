@@ -50,3 +50,4 @@ Route::get('/reports', 'ReportesController@index')->name('reports.index');
 
 Route::post('/get_data_grafica', 'ReportesController@get_data_grafica')->name('reports.get_data_grafica');
 Route::post('/get_data_grafica_torta', 'ReportesController@get_data_grafica_torta')->name('reports.get_data_torta');
+Route::post('/get_data_relatorio', 'ReportesController@get_data_relatorio')->name('reports.get_data_relatorio');

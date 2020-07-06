@@ -73,4 +73,36 @@ $(document).ready( function(){
         } ;
 
     });
-});
+    $('.btn-data-relatorio').click(function (e){
+            e.preventDefault();
+
+            let form = $('#formulario-reporte');
+
+            let data = form.serialize();
+
+            console.log(data.includes('users'));
+            console.log(data);
+
+            if (data.includes('users')) {
+                $('#grafica').html('<div class="loading">Un momento, por favor...</div>');
+                $.ajax({
+                    type: "POST",
+                    url: '/get_data_relatorio',
+                    data: data,
+                    success: function(result) {
+                        console.log(true);
+                        console.log(result);
+                        // $('.loading').hide();
+                        // $('#grafica').html(result);
+                        // $('#grafica').show();
+                    }
+                }).fail( function( jqXHR, textStatus, errorThrown ) {
+                    console.log('Uncaught Error: ' + jqXHR.responseText);
+                });
+            } else {
+                console.log('Debe selecionar un elemento en la lista de usuarios');
+                no_select_user_formulario();
+            } ;
+
+        });
+    });

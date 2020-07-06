@@ -6,10 +6,10 @@
     <div class="row justify-content-center">
         <div class="col-lg-8 col-md-12">
             <div class="card">
-                <div class="text-center">
+                {{-- <div class="text-center">
                     <h2>En construccion</h2>
                     <img src="https://static.wixstatic.com/media/404129_57320dafca4649a38b9f9e7f337e5c49~mv2.gif" alt="En contruccion">
-                </div>
+                </div> --}}
                 <div class="card-header"><h2>List of factura</h2></div>
 
                 @include('custom.mensaje')
@@ -43,7 +43,7 @@
                                 <td>R$ {{ $factura->total_imp_inc }}</td>
                                 <td>R$ {{ $factura->valor }}</td>
                                 <td>R$ {{ $factura->total }}</td>
-                                
+
                                 {{-- <td>
                                     @can('haveaccess', 'factura.show')
                                         <a class="btn btn-success" href="{{ route('factura.show', $factura->id) }}">Show</a>

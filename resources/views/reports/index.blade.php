@@ -41,13 +41,19 @@
                         </div>
 
                         <div class="form-row my-4">
-                            <div class="col-md-6 col-12 my-3 my-md-1">
+                            <div class="col-md-4 col-12 my-3 my-md-1">
+                                {!! Form::button('Relatório', ['type' => 'submit', 'class' => 'btn-data-relatorio btn btn-primary btn-lg btn-block'])  !!}
+                            </div>
+
+                            <div class="col-md-4 col-12 my-3 my-md-1">
                                 {!! Form::button('<i class="fas fa-chart-bar"></i> Gráfico', ['type' => 'submit', 'class' => 'btn-data-grafica btn btn-primary btn-lg btn-block'])  !!}
                             </div>
 
-                            <div class="col-md-6 col-12 my-3 my-md-1">
+                            <div class="col-md-4 col-12 my-3 my-md-1">
                                 {!! Form::button('<i class="fas fa-chart-pie"></i> Pizza', ['type' => 'submit', 'class' => 'btn-data-torta btn btn-primary btn-lg btn-block'])  !!}
                             </div>
+
+
                         </div>
 
                         {!! Form::close() !!}

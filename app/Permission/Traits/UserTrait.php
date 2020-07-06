@@ -3,6 +3,7 @@ namespace App\Permission\Traits;
 use App\Permission\Models\Role;
 use App\Permission\Models\Factura;
 use App\Permission\Models\Cao_sistema;
+use App\Permission\Models\Salario;
 
 trait UserTrait{
     // es: de aqui
@@ -11,21 +12,6 @@ trait UserTrait{
     public function roles()
     {
         return $this->belongsToMany(Role::class)->withTimesTamps();
-    }
-
-    public function salarios()
-    {
-        return $this->hasOne('App\Permission\Models\Salario')->withTimesTamps();
-    }
-
-    public function facturas()
-    {
-        return $this->belongsToMany(Factura::class)->withTimesTamps();
-    }
-
-    public function cao_sistema()
-    {
-        return $this->belongsToMany(Cao_sistema::class, 'cao_sistemas','co_usuario')->withPivot('co_usuario')->withTimesTamps();
     }
 
     public function havePermission($permission){
