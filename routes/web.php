@@ -48,4 +48,5 @@ Route::resource('/factura', 'FacturaController')->names('factura');
 
 Route::get('/reports', 'ReportesController@index')->name('reports.index');
 
-Route::post('/reports-get-data', 'ReportesController@get_data')->name('reports.get_data');
+Route::post('/get_data_grafica', 'ReportesController@get_data_grafica')->name('reports.get_data_grafica');
+Route::post('/get_data_grafica_torta', 'ReportesController@get_data_grafica_torta')->name('reports.get_data_torta');

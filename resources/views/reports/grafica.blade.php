@@ -7,14 +7,14 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     {{-- <style type="text/css">
-        
-    
+
+
         .highcharts-figure, .highcharts-data-table table {
-          min-width: 310px; 
+          min-width: 310px;
           max-width: 800px;
           margin: 1em auto;
         }
-    
+
         .highcharts-data-table table {
           font-family: Verdana, sans-serif;
           border-collapse: collapse;
@@ -42,20 +42,16 @@
         .highcharts-data-table tr:hover {
           background: #f1f7ff;
         }
-    
+
     </style> --}}
 </head>
 <body>
 
-<script src="https://code.highcharts.com/highcharts.js"></script>
-<script src="https://code.highcharts.com/highcharts-3d.js"></script>
-<script src="https://code.highcharts.com/modules/exporting.js"></script>
-<script src="https://code.highcharts.com/modules/export-data.js"></script>
-<script src="https://code.highcharts.com/modules/accessibility.js"></script>
-    
+
+
 <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 <div class="mx-1">
-    
+
         <div id="container-grafica"></div>
         <p class="highcharts-description">
             {{-- hola aqui esta la grafica --}}
@@ -64,76 +60,78 @@
 
 <script>
 
-    var series_data = <?php echo json_encode($series_data['series']); ?>;
-    var category_data = <?php echo json_encode($series_data['categories']); ?>;
+    $(document).ready( function(){
 
-    Highcharts.chart('container-grafica', {
-		    chart: {
-		        type: 'column',
-		        options3d: {
-		            enabled: true,
-		            alpha: 2,
-		            beta: 10,
-		            viewDistance: 20,
-		            depth: 60
-		        }
-		    },
+        var series_data = <?php echo json_encode($series_data['series']); ?>;
+        var category_data = <?php echo json_encode($series_data['categories']); ?>;
 
-		    title: {
-		        text: 'Performance comercial'
-		    },
+        Highcharts.chart('container-grafica', {
+                chart: {
+                    type: 'column',
+                    options3d: {
+                        enabled: true,
+                        alpha: 2,
+                        beta: 10,
+                        viewDistance: 20,
+                        depth: 60
+                    }
+                },
 
-		    xAxis: {
-		        categories: category_data,
-		        labels: {
-		            // skew3d: true,
-		            style: {
-		                fontSize: '16px'
-		            }
-		        }
-		    },
+                title: {
+                    text: 'Performance comercial'
+                },
 
-		    yAxis: {
-		        // allowDecimals: false,
-		        min: 0,
-		        title: {
-		            text: '',
-		            skew3d: true
-		        },
-		        labels: {
-		            formatter: function () {
-		                return 'R$' + this.value;
-		            }
-		        }
-		    },
+                xAxis: {
+                    categories: category_data,
+                    labels: {
+                        // skew3d: true,
+                        style: {
+                            fontSize: '16px'
+                        }
+                    }
+                },
 
-		    tooltip: {
-		        headerFormat: '<b>{point.key}</b><br>',
-		        // pointFormat: '<span style="color:{series.color}">\u25CF</span> {series.name}: {point.y} / {point.stackTotal}'
-		        pointFormat: '<span style="color:{series.color}">\u25CF</span> {series.name}: {point.y:.2f} R$'
-		    },
+                yAxis: {
+                    // allowDecimals: false,
+                    min: 0,
+                    title: {
+                        text: '',
+                        skew3d: true
+                    },
+                    labels: {
+                        formatter: function () {
+                            return 'R$' + this.value;
+                        }
+                    }
+                },
 
-		    // plotOptions: {
-		    //     column: {
-		    //         stacking: 'normal',
-		    //         depth: 40
-		    //     }
-		    // },
-		    plotOptions: {
-		        spline: {
-		            marker: {
-		                radius: 4,
-		                lineColor: '#666666',
-		                lineWidth: 1
-		            }
-		        }
-		    },
+                tooltip: {
+                    headerFormat: '<b>{point.key}</b><br>',
+                    // pointFormat: '<span style="color:{series.color}">\u25CF</span> {series.name}: {point.y} / {point.stackTotal}'
+                    pointFormat: '<span style="color:{series.color}">\u25CF</span> {series.name}: {point.y:.2f} R$'
+                },
 
-		    series: series_data});
+                plotOptions: {
+                    column: {
+                        stacking: 'normal',
+                        depth: 40
+                    }
+                },
+                plotOptions: {
+                    spline: {
+                        marker: {
+                            radius: 4,
+                            lineColor: '#666666',
+                            lineWidth: 1
+                        }
+                    }
+                },
 
-		// document.getElementByClassName('').hid
-		document.getElementsByClassName('highcharts-credits')[0].style.visibility = 'hidden';
+                series: series_data});
 
+            // document.getElementByClassName('').hid
+            document.getElementsByClassName('highcharts-credits')[0].style.visibility = 'hidden';
+        });
 
 </script>
 
