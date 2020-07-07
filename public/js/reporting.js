@@ -18,7 +18,7 @@ $(document).ready( function(){
         // console.log(data);
 
         if (data.includes('users')) {
-            $('#grafica').html('<div class="loading">Un momento, por favor...</div>');
+            $('#grafica').html('<i class="fas fa-spinner fa-pulse fa-3x fa-fw"></i><span class="sr-only">Loading...</span>');
             $.ajax({
                 type: "POST",
                 url: '/get_data_grafica',
@@ -34,6 +34,10 @@ $(document).ready( function(){
 
                 // alert( 'Error!!' );
 
+            }).fail( function( jqXHR, textStatus, errorThrown ) {
+                console.log('Uncaught Error: ' + jqXHR.responseText);
+                // $('#grafica').html(jqXHR.responseText);
+                $('#grafica').html('An error occurred, try again');
             });
         } else {
             console.log('Debe selecionar un elemento en la lista de usuarios');
@@ -54,7 +58,7 @@ $(document).ready( function(){
         console.log(data);
 
         if (data.includes('users')) {
-            $('#grafica').html('<div class="loading">Un momento, por favor...</div>');
+            $('#grafica').html('<i class="fas fa-spinner fa-pulse fa-3x fa-fw"></i><span class="sr-only">Loading...</span>');
             $.ajax({
                 type: "POST",
                 url: '/get_data_grafica_torta',
@@ -66,6 +70,10 @@ $(document).ready( function(){
                     $('#grafica').html(result);
                     $('#grafica').show();
                 }
+            }).fail( function( jqXHR, textStatus, errorThrown ) {
+                console.log('Uncaught Error: ' + jqXHR.responseText);
+                // $('#grafica').html(jqXHR.responseText);
+                $('#grafica').html('An error occurred, try again');
             });
         } else {
             console.log('Debe selecionar un elemento en la lista de usuarios');
@@ -84,7 +92,7 @@ $(document).ready( function(){
             console.log(data);
 
             if (data.includes('users')) {
-                $('#grafica').html('<div class="loading">Un momento, por favor...</div>');
+                $('#grafica').html('<i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i><span class="sr-only">Loading...</span>');
                 $.ajax({
                     type: "POST",
                     url: '/get_data_relatorio',
@@ -92,12 +100,14 @@ $(document).ready( function(){
                     success: function(result) {
                         console.log(true);
                         console.log(result);
-                        // $('.loading').hide();
-                        // $('#grafica').html(result);
-                        // $('#grafica').show();
+                        $('.loading').hide();
+                        $('#grafica').html(result);
+                        $('#grafica').show();
                     }
                 }).fail( function( jqXHR, textStatus, errorThrown ) {
                     console.log('Uncaught Error: ' + jqXHR.responseText);
+                    // $('#grafica').html(jqXHR.responseText);
+                    $('#grafica').html('An error occurred, try again');
                 });
             } else {
                 console.log('Debe selecionar un elemento en la lista de usuarios');

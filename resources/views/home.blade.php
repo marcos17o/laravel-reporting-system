@@ -5,7 +5,8 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Dashboard
+                <div class="card-header">
+                    <h2>Bienvenid@ al panel de administracion</h2>
                 </div>
 
                 <div class="card-body">
@@ -14,7 +15,7 @@
                             {{ session('status') }}
                         </div>
                     @endif
-                    You are logged in!
+                    
                 </div>
             </div>
         </div>

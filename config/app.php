@@ -176,6 +176,8 @@ return [
         App\Providers\RouteServiceProvider::class,
         
         Collective\Html\HtmlServiceProvider::class,
+
+        // Akaunting\Money\Provider::class,
         
 
     ],

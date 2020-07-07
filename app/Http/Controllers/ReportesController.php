@@ -42,17 +42,6 @@ class ReportesController extends Controller
         return view('reports.index', compact('role', 'data_user','array_dates'));
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Permission\Models\Factura  $factura
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Factura $factura)
-    {
-
-    }
-
     function check_in_range($date_start, $date_end, $date_now) {
         $date_start = strtotime($date_start);
         $date_end = strtotime($date_end);
@@ -193,7 +182,6 @@ class ReportesController extends Controller
                     $v1 = $valor - (($valor*$total_imp_inc)/100);
 
                     array_push( $array_data, (float) $v1);
-
                 }
             }
             $e = array_sum($array_data);
@@ -223,8 +211,40 @@ class ReportesController extends Controller
 
         // return response()->json($data_users,200);
 
-        // $series_data = array('categories' =>$range_date, 'series' => $data_ordenada);
         return view('reports.grafica_pie', compact('data_users'));
+    }
+
+
+    function regla_de_tres($valor,$porcentaje){
+        $total = (($porcentaje*$valor)/100);
+        return $total;
+    }
+
+    function optener_salario($salarios,$id_consultor){
+        // $id_consultor = (int) $id_consultor;
+        $salarios_consultores = [];
+        foreach ($salarios as $salario) {
+            $salarios_consultores[$salario->user_id] = $salario->brut_salario;
+        }
+        return $salarios_consultores[$id_consultor];
+    }
+
+    function optener_valor_comision($valor,$porcentaje_imp,$porcentaje_comision){
+        $valor_impuesto = $this->regla_de_tres($valor,$porcentaje_imp);
+        $valor_bruto = ($valor - $valor_impuesto);
+        $valor_comision = $this->regla_de_tres($valor_bruto,$porcentaje_comision);
+        return $valor_comision;
+    }
+
+    function optener_valor_ganancias($valor, $porcentaje_imp){
+        $valor_impuesto = $this->regla_de_tres($valor,$porcentaje_imp);
+        $valor_ganancia = $valor - $valor_impuesto;
+        return $valor_ganancia;
+    }
+
+    function optener_valor_lucro($ganancias,$salario,$comision){
+        $valor_lucro = $ganancias - ($salario + $comision);
+        return $valor_lucro;
     }
 
     public function get_data_relatorio(Request $request)
@@ -260,135 +280,86 @@ class ReportesController extends Controller
 
         $range_date = $this->fechas($date_to_start, $date_to_end);
 
-        $data_ordenada = [];
-        $array_data    = [];
-        $receita_l     = [];
-        $comision_l    = [];
-        $lucro_i       = [];
-        $v             = 0;
-        $v2            = 0;
-        $v3            = 0;
+        $array_data = [];
+
 
         foreach ($name_users as $user_item) {
-
+            // separo los datos de cada consultor
             foreach ($data as $data_item) {
                 if ($user_item->co_usuario == $data_item->co_usuario) {
+                    $id_consultor         = $user_item->id;
+                    $mes_e                = date('m', strtotime($data_item->data_emissao));
+                    $consultor            = $user_item->name;
+                    $valor                = $data_item->valor;
+                    $porcentaje_imp       = $data_item->total_imp_inc;
+                    $porcentaje_comision  = $data_item->comissao_cn;
+                    
+                    if (!isset(${'ganancias'.$id_consultor.'_'.$mes_e})) {
+                        ${'ganancias'.$id_consultor.'_'.$mes_e} = 0;
+                        ${'comision'.$id_consultor.'_'.$mes_e}  = 0;
+                        ${'lucro'.$id_consultor.'_'.$mes_e}     = 0;
 
-                    $valor         = $data_item->valor;
-                    $total_imp_inc = $data_item->total_imp_inc;
-                    $comision      = $data_item->comissao_cn;
-
-                    foreach ($salarios as $salario) {
-                        if ($salario->user_id == $user_item->id) {
-                            $brut_salario = $salario->brut_salario;
-                        }
-                    }
-                    $mes_e = date('m', strtotime($data_item->data_emissao));
-
-                    $receita_liquida = $valor - (($valor*$total_imp_inc)/100);
-
-                    foreach ($range_date as $range_d) {
-                        $mes_i = date('m', strtotime($range_d));
-                        if ( $mes_i == $mes_e) {
-                            $receita_l[] = $receita_liquida;
-                        }
+                        ${'total_ganancia_'.$id_consultor}      = 0;
+                        ${'total_comision_'.$id_consultor}      = 0;
+                        ${'total_salario_'.$id_consultor}       = 0;
+                        ${'total_lucro_'.$id_consultor}         = 0;
                     }
 
-                    $comision_item = $valor - (($valor*$total_imp_inc)*$data_item->comissao_cn);
-                    // comisión = (VALOR – (VALOR*TOTAL_IMP_INC))*COMISSAO_CN
+                    ${'ganancias'.$id_consultor.'_mes_'.$mes_e} = $this->optener_valor_ganancias($valor, $porcentaje_imp);
+                    ${'salario'.$id_consultor.'_mes_'.$mes_e}   = $this->optener_salario($salarios,$id_consultor);
+                    ${'comision'.$id_consultor.'_mes_'.$mes_e}  = $this->optener_valor_comision($valor,$porcentaje_imp,$porcentaje_comision);
+                
 
+
+                    // organizo los datos por mes
                     foreach ($range_date as $range_d) {
                         $mes_i = date('m', strtotime($range_d));
-                        if ( $mes_i == $mes_e) {
-                            $comision_l[] = $comision_item;
-                        }
-                    }
+                        $mes_i_texto = date('M, Y', strtotime($range_d));
 
-                    $lucro_item = ($receita_liquida - ($brut_salario + $comision_item));
-                    // Lucro = (VALOR-TOTAL_IMP_INC) – (Costo fijo + comisión).
+                        if ($mes_i == $mes_e) {
 
-                    foreach ($range_date as $range_d) {
-                        $mes_i = date('m', strtotime($range_d));
-                        if ( $mes_i == $mes_e) {
-                            $lucro_i[] = $lucro_item;
-                        }
-                    }
-
-
-                    foreach ($range_date as $range_d) {
-                        $mes_i = date('m', strtotime($range_d));
-
-                        if ( $mes_i == $mes_e) {
-                            $array_data[$mes_i][] = [
-                                'receita_liquida' => array_sum($receita_l),
-                                'brut_salario'    => $brut_salario,
-                                'comision'        => $comision_l,
-                                'lucro'           => $lucro_i
-                            ] ;
-                        }else{
-                            $array_data[$mes_i][] = [
-                                'receita_liquida' => 0,
-                                'brut_salario'    => $brut_salario,
-                                'comision'        => 0,
-                                'lucro'           => 0
+                            ${'ganancias'.$id_consultor.'_'.$mes_e} += ${'ganancias'.$id_consultor.'_mes_'.$mes_e};
+                            ${'comision'.$id_consultor.'_'.$mes_e}  += ${'comision'.$id_consultor.'_mes_'.$mes_e};
+                            $lucro = $this->optener_valor_lucro( ${'ganancias'.$id_consultor.'_'.$mes_e},${'salario'.$id_consultor.'_mes_'.$mes_e},${'comision'.$id_consultor.'_'.$mes_e});
+                            // empaqueto los datos
+                            $array_data[$consultor][$mes_i_texto] = [
+                                'fecha'     => $mes_i_texto,
+                                'ganancias' => ${'ganancias'.$id_consultor.'_'.$mes_e},
+                                'salario'   => ${'salario'.$id_consultor.'_mes_'.$mes_e},
+                                'comision'  => ${'comision'.$id_consultor.'_'.$mes_e},
+                                'lucro'     => $lucro
                             ];
+
+                            ${'total_ganancia_'.$id_consultor}      += ${'ganancias'.$id_consultor.'_'.$mes_e};
+                            ${'total_salario_'.$id_consultor}       += ${'salario'.$id_consultor.'_mes_'.$mes_e};
+                            ${'total_comision_'.$id_consultor}      += ${'comision'.$id_consultor.'_'.$mes_e};
+                            ${'total_lucro_'.$id_consultor}         += $lucro;
+                            
                         }
                     }
-
                 }
             }
 
-            foreach ($range_date as $range_d) {
-                $mes_i = date('m', strtotime($range_d));
-                $mes_i_texto = date('Y M', strtotime($range_d));
-                if (isset($array_data[$mes_i])) {
-
-                    foreach ($array_data[$mes_i] as $item_mes) {
-                        $v += $item_mes['receita_liquida'];
-                    }
-
-                    foreach ($array_data[$mes_i] as $item_mes) {
-                        $v2 += $item_mes['receita_liquida'];
-                    }
-
-                    // foreach ($array_data[$mes_i] as $item_mes) {
-                    //     $v3 += $item_mes['lucro'];
-                    // }
-
-                    $item_data[] = [
-                        'name_mes'        => $mes_i_texto,
-                        'receita_liquida' => $v,
-                        'brut_salario'    => $brut_salario,
-                        'comision'        => $v2,
-                        // 'lucro'           => $array_data[$mes_i]['lucro']
-                    ];
-                }else{
-                    $item_data[] = [
-                        'name_mes'        => $mes_i_texto,
-                        'receita_liquida' => 0,
-                        'brut_salario'    => $brut_salario,
-                        'comision'        => 0,
-                        // 'lucro'           => $v3
-                    ];
-                }
-            }
-
-            $data_ordenada[] = [
-                'name' => $user_item['name'],
-                'data' => $item_data
+            $total_consultor[$user_item->name] = [
+                'ganancias' => ${'total_ganancia_'.$id_consultor},
+                'salario'   => ${'total_salario_'.$id_consultor},
+                'comision'  => ${'total_comision_'.$id_consultor},
+                'lucro'     => ${'total_lucro_'.$id_consultor}
             ];
 
-            $array_data = [];
-            $item_data = [];
-        }
+            ${'total_ganancia_'.$id_consultor}      = 0;
+            ${'total_comision_'.$id_consultor}      = 0;
+            ${'total_salario_'.$id_consultor}       = 0;
+            ${'total_lucro_'.$id_consultor}         = 0;
 
-        // $request_data = $request->all();
+        }   
 
-        return json_encode($data_ordenada);
 
-        // $series_data = array('categories' =>$range_date, 'series' => $data_ordenada);
+        // return array_multisort($array_data, SORT_ASC);
+        // return json_encode($total_consultor);
 
-        // return view('reports.grafica', compact('series_data'));
+
+        return view('reports.grafica_tabla', compact('array_data', 'total_consultor'));
 
     }
 

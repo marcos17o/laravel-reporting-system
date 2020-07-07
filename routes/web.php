@@ -25,14 +25,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/test', function () {
-    $user = User::find(2);
-    // $user->roles()->sync([2]);
-    Gate::authorize('haveaccess', 'role.index');
-    return $user;
+// Route::get('/test', function () {
+//     $user = User::find(2);
+//     // $user->roles()->sync([2]);
+//     Gate::authorize('haveaccess', 'role.index');
+//     return $user;
 
-    // return $user->havePermission('role.create');
-});
+//     // return $user->havePermission('role.create');
+// });
 
 Auth::routes();
 
