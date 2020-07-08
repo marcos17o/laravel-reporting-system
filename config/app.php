@@ -177,7 +177,7 @@ return [
         
         Collective\Html\HtmlServiceProvider::class,
 
-        // Akaunting\Money\Provider::class,
+        Akaunting\Money\Provider::class,
         
 
     ],

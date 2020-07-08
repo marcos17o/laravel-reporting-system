@@ -32,7 +32,7 @@
                 
                 ?>
             <table class="table table-bordered table-sm">
-                <thead>
+                <thead class="thead-light">
                     <tr>
                     <th colspan="5" scope="col"><h2>{{ $consultor }}</th>
                     </tr>
@@ -49,20 +49,20 @@
                     @foreach ($mes as $item)
                             <tr> 
                                 <th>{{ $item['fecha'] }}</th>
-                                <th class="<?php echo is_negative_number($item['ganancias']) ? 'text-danger': ''; ?>">{{ number_format($item['ganancias'], 2) }}</th>
-                                <th class="<?php echo is_negative_number($item['salario']) ? 'text-danger': ''; ?>">- {{ number_format($item['salario'], 2) }}</th>
-                                <th class="<?php echo is_negative_number($item['comision']) ? 'text-danger': ''; ?>">- {{ number_format($item['comision'],2) }}</th>
-                                <th class="<?php echo is_negative_number($item['lucro']) ? 'text-danger': ''; ?>">{{ number_format($item['lucro'],2) }}</th>
+                                <th class="<?php echo is_negative_number($item['ganancias']) ? 'text-danger': ''; ?>">{{ money($item['ganancias'], 'BRL') }}</th>
+                                <th class="<?php echo is_negative_number($item['salario']) ? 'text-danger': ''; ?>">{{ money($item['salario'], 'BRL') }}</th>
+                                <th class="<?php echo is_negative_number($item['comision']) ? 'text-danger': ''; ?>">{{ money($item['comision'],'BRL') }}</th>
+                                <th class="<?php echo is_negative_number($item['lucro']) ? 'text-danger': ''; ?>">{{ money($item['lucro'],'BRL') }}</th>
                             </tr>
                     @endforeach
                     @foreach ($total_consultor as $user => $item_total)
                             @if ($user == $consultor)
-                                <tr> 
+                                <tr class="thead-light"> 
                                     <th>SALDO</th>
-                                    <th class="<?php echo is_negative_number($item['ganancias']) ? 'text-danger': ''; ?>">{{ number_format($item_total['ganancias'], 2) }}</th>
-                                    <th class="<?php echo is_negative_number($item['salario']) ? 'text-danger': ''; ?>">- {{ number_format($item_total['salario'], 2) }}</th>
-                                    <th class="<?php echo is_negative_number($item['comision']) ? 'text-danger': ''; ?>">- {{ number_format($item_total['comision'],2) }}</th>
-                                    <th class="<?php echo is_negative_number($item['lucro']) ? 'text-danger': ''; ?>">{{ number_format($item_total['lucro'],2) }}</th>
+                                    <th class="<?php echo is_negative_number($item['ganancias']) ? 'text-danger': ''; ?>">{{ money($item_total['ganancias'], 'BRL') }}</th>
+                                    <th class="<?php echo is_negative_number($item['salario']) ? 'text-danger': ''; ?>">{{ money($item_total['salario'], 'BRL') }}</th>
+                                    <th class="<?php echo is_negative_number($item['comision']) ? 'text-danger': ''; ?>">{{ money($item_total['comision'],'BRL') }}</th>
+                                    <th class="<?php echo is_negative_number($item['lucro']) ? 'text-danger': ''; ?>">{{ money($item_total['lucro'],'BRL') }}</th>
                                 </tr>
                             @endif
                     @endforeach

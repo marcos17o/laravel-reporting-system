@@ -89,7 +89,7 @@ $(document).ready( function(){
             let data = form.serialize();
 
             console.log(data.includes('users'));
-            console.log(data);
+            // console.log(data);
 
             if (data.includes('users')) {
                 $('#grafica').html('<i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i><span class="sr-only">Loading...</span>');
