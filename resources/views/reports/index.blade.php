@@ -89,11 +89,8 @@
 @endsection
 
 @section('scripts_footer')
-{{-- <script src="{{ asset('js/move.js') }}" defer></script> --}}
 
 <script src="{{ asset('js/reporting.js?ver=1.1') }}" defer></script>
-{{-- <script src="{{ asset('js/grafica.js') }}"></script> --}}
-{{-- <script src="{{ asset('js/select2-config.js?ver=1.1') }}"></script> --}}
 
 <script type="text/javascript">
 $.fn.selectpicker.Constructor.BootstrapVersion = '4';
